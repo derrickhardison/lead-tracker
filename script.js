@@ -4,8 +4,6 @@ let myLeads = [];
 
 const storedData = JSON.parse(localStorage.getItem("myLeads"));
 
-const tabs = [{ url: "https://www.linkedin.com/in/derrickhardison/" }];
-
 // DOM VARIABLES
 const saveBtn = document.getElementById("input-button");
 const inputEl = document.getElementById("input-el");
@@ -52,7 +50,15 @@ deleteBtn.addEventListener("dblclick", function () {
 });
 
 saveTabBtn.addEventListener("click", function () {
-  myLeads.push(tabs[0].url);
-  localStorage.setItem("myLeads", JSON.stringify(myLeads));
-  renderLeads(myLeads);
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    console.log(tabs);
+
+    myLeads.push(tabs[0].url);
+    localStorage.setItem("myLeads", JSON.stringify(myLeads));
+    renderLeads(myLeads);
+    // let activeTab = tabs[0];
+    // let activeTabId = activeTab.id;
+
+    // console.log(activeTab, activeTabId);
+  });
 });
