@@ -4,27 +4,30 @@ let myLeads = [];
 
 const storedData = JSON.parse(localStorage.getItem("myLeads"));
 
+const tabs = [{ url: "https://www.linkedin.com/in/derrickhardison/" }];
+
 // DOM VARIABLES
 const saveBtn = document.getElementById("input-button");
 const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
 const deleteBtn = document.getElementById("delete-button");
+const saveTabBtn = document.getElementById("save-tab-button");
 
-//
+// CONDITIONALS
 if (storedData) {
   myLeads = storedData;
-  renderLeads();
+  renderLeads(myLeads);
   console.log(storedData);
 }
 
 // FUNCTIONS
 
-function renderLeads() {
+function renderLeads(arr) {
   let listItems = "";
-  for (let i = 0; i < myLeads.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     listItems += `
     <li>
-      <a href=${myLeads[i]} target='_blank'>${myLeads[i]}
+      <a href=${arr[i]} target='_blank'>${arr[i]}
       </a>
     </li>
     `;
@@ -39,11 +42,17 @@ saveBtn.addEventListener("click", function () {
 
   localStorage.setItem("myLeads", JSON.stringify(myLeads));
 
-  renderLeads();
+  renderLeads(myLeads);
 });
 
 deleteBtn.addEventListener("dblclick", function () {
   localStorage.clear();
   myLeads = [];
-  renderLeads();
+  renderLeads(myLeads);
+});
+
+saveTabBtn.addEventListener("click", function () {
+  myLeads.push(tabs[0].url);
+  localStorage.setItem("myLeads", JSON.stringify(myLeads));
+  renderLeads(myLeads);
 });
