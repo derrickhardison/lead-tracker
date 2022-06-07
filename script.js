@@ -2,10 +2,18 @@
 
 let myLeads = [];
 
+let storedData = JSON.parse(localStorage.getItem("myLeads"));
+
 // DOM VARIABLES
 const saveBtn = document.getElementById("input-button");
 const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
+
+if (storedData) {
+  myLeads = storedData;
+  renderLeads();
+  console.log(storedData);
+}
 
 // FUNCTIONS
 
@@ -18,7 +26,6 @@ function renderLeads() {
       </a>
     </li>
     `;
-    console.log(listItems);
   }
   ulEl.innerHTML = listItems;
 }
@@ -27,5 +34,8 @@ function renderLeads() {
 saveBtn.addEventListener("click", function () {
   myLeads.push(inputEl.value);
   inputEl.value = "";
+
+  localStorage.setItem("myLeads", JSON.stringify(myLeads));
+
   renderLeads();
 });
