@@ -24,6 +24,12 @@ a {
   padding: 10px 20px;
   margin: 5px 0 0 0;
   font-weight: bold;
+  border: 1px solid #5f9341;
+}
+
+.delete-btn {
+  background: #fff;
+  color: #5f9341;
 }
 
 .text-input {

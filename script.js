@@ -2,13 +2,15 @@
 
 let myLeads = [];
 
-let storedData = JSON.parse(localStorage.getItem("myLeads"));
+const storedData = JSON.parse(localStorage.getItem("myLeads"));
 
 // DOM VARIABLES
 const saveBtn = document.getElementById("input-button");
 const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
+const deleteBtn = document.getElementById("delete-button");
 
+//
 if (storedData) {
   myLeads = storedData;
   renderLeads();
@@ -37,5 +39,11 @@ saveBtn.addEventListener("click", function () {
 
   localStorage.setItem("myLeads", JSON.stringify(myLeads));
 
+  renderLeads();
+});
+
+deleteBtn.addEventListener("dblclick", function () {
+  localStorage.clear();
+  myLeads = [];
   renderLeads();
 });
